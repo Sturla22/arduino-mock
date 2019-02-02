@@ -220,5 +220,10 @@ uint8_t Serial_::read() {
   return gSerialMock->read();
 }
 
+uint8_t Serial_::readBytesUntil(char delimiter, char* buffer, int length) {
+  assert (gSerialMock != NULL);
+  return gSerialMock->readBytesUntil(delimiter, buffer, length);
+}
+
 // Preinstantiate Objects
 Serial_ Serial;
