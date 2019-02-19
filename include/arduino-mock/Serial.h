@@ -52,7 +52,7 @@ class SerialMock {
     */
 };
 
-class Serial_ {
+class Stream {
 
   private:
     static bool printToCout;
@@ -105,7 +105,7 @@ class Serial_ {
     static size_t println(const Printable&);
     */
 };
-extern Serial_ Serial;
+extern Stream Serial;
 
 SerialMock* serialMockInstance();
 void releaseSerialMock();
