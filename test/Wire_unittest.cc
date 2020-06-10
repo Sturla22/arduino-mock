@@ -6,14 +6,14 @@ using ::testing::Return;
 TEST(Wire, access) {
   uint8_t value1 = 10;
   uint8_t value2 = 12;
-  char text[] = "Mock test";
+  const uint8_t text[] = "Mock test";
   uint8_t* callback_func = NULL;
   WireMock* mock = WireMockInstance();
   EXPECT_CALL(*mock, begin());
   EXPECT_CALL(*mock, beginTransmission(value1));
   EXPECT_CALL(*mock, endTransmission(value1));
   EXPECT_CALL(*mock, requestFrom(value1, value2));
-  EXPECT_CALL(*mock, write(text));
+  EXPECT_CALL(*mock, write(text, 9));
   EXPECT_CALL(*mock, available());
   EXPECT_CALL(*mock, read());
   EXPECT_CALL(*mock, onReceive(callback_func));
@@ -22,7 +22,7 @@ TEST(Wire, access) {
   Wire.beginTransmission(value1);
   Wire.endTransmission(value1);
   Wire.requestFrom(value1, value2);
-  Wire.write(text);
+  Wire.write(text, 9);
   Wire.available();
   Wire.read();
   Wire.onReceive(callback_func);

@@ -9,7 +9,7 @@
 #define I2C1 0x00000000
 #define WIRE_INTERFACES_COUNT 1
 
-class Wire_ {
+class TwoWire {
   public:
     void begin();
     void begin(uint8_t);
@@ -19,11 +19,10 @@ class Wire_ {
     uint8_t endTransmission(uint8_t);
     uint8_t requestFrom(uint8_t, uint8_t);
     uint8_t requestFrom(uint8_t, uint8_t, uint8_t);
-    uint8_t write(uint8_t);
-    uint8_t write(char*);
-    uint8_t write(uint8_t, uint8_t);
-    uint8_t available(void);
-    uint8_t read(void);
+    virtual size_t write(uint8_t);
+    virtual size_t write(const uint8_t*, uint8_t);
+    virtual int available(void);
+    virtual int read(void);
     void onReceive(uint8_t*);
     void onRequest(uint8_t*);
     inline size_t write(unsigned long n) {
@@ -39,7 +38,7 @@ class Wire_ {
       return write((uint8_t)n);
     }
 };
-extern Wire_ Wire;
+extern TwoWire Wire;
 
 class WireMock {
   public:
@@ -51,11 +50,10 @@ class WireMock {
     MOCK_METHOD1(endTransmission, uint8_t(uint8_t));
     MOCK_METHOD2(requestFrom, uint8_t(uint8_t, uint8_t));
     MOCK_METHOD3(requestFrom, uint8_t(uint8_t, uint8_t, uint8_t));
-    MOCK_METHOD1(write, uint8_t(uint8_t));
-    MOCK_METHOD1(write, uint8_t(char*));
-    MOCK_METHOD2(write, uint8_t(uint8_t, uint8_t));
-    MOCK_METHOD0(available, uint8_t(void));
-    MOCK_METHOD0(read, uint8_t(void));
+    MOCK_METHOD1(write, size_t(uint8_t));
+    MOCK_METHOD2(write, size_t(const uint8_t*, uint8_t));
+    MOCK_METHOD0(available, int(void));
+    MOCK_METHOD0(read, int(void));
     MOCK_METHOD1(onReceive, void(uint8_t*));
     MOCK_METHOD1(onRequest, void(uint8_t*));
 };
